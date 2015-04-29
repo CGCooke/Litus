@@ -1,8 +1,14 @@
+''' Style Guide http://www.python.org/dev/peps/pep-0008/ '''
+
+''' standard library imports '''
+import time
+
+''' related third party imports ''' 
 import numpy as np
 import pyproj
 from optparse import OptionParser
 
-import time
+''' local application/library specific imports '''
 
 def createLLHFile(options):
 	'''
@@ -11,7 +17,7 @@ def createLLHFile(options):
 	'''
 
 	startTime = time.time()
-	XYZdata = np.loadtxt(options.inputFileName,delimiter=' ',usecols=(0,1,2))
+	XYZdata = np.loadtxt(options.inputFileName,delimiter=',',usecols=(0,1,2))
 	LLHFile = open(options.outputFileName,'w')
 
 	X=XYZdata[:,0]

@@ -5,7 +5,6 @@ import math
 import pickle
 
 ''' related third party imports ''' 
-import numpy as np
 
 ''' local application/library specific imports '''
 

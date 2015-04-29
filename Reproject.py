@@ -1,8 +1,14 @@
+'''//www.python.org/dev/peps/pep-0008/ '''
+
+''' standard library imports '''
+import time
+
+''' related third party imports ''' 
 import numpy as np
 from pyproj import Proj
 from optparse import OptionParser
-import time
 
+''' local application/library specific imports '''
 import geoidReader
 
 def reproject(options):
