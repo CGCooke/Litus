@@ -41,11 +41,11 @@ def filter(options):
 if __name__ == '__main__':
 
 	parser = OptionParser()
-	parser.add_option('-i','--inputFileName', action="store", dest="inputFileName")
-	parser.add_option('-o','--outputFileName', action="store", dest="outputFileName")
-	parser.add_option('--minHeight', help='store', action="store",  dest='minHeight')
-	parser.add_option('--maxHeight', help='store', action="store",  dest='maxHeight')
-	parser.add_option('--polygon', help='boolean option', dest='polyFilter',default=False, action='store_true')
+	parser.add_option('-i','--inputFilePath', action="store", dest="inputFileName",help="Path to the input file")
+	parser.add_option('-o','--outputFilePath', action="store", dest="outputFileName",help="Path to the output file")
+	parser.add_option('--minHeight', action="store",  dest='minHeight',help="Minimum height threshold for points")
+	parser.add_option('--maxHeight', action="store",  dest='maxHeight',help="Maximum height threshold for points")
+	parser.add_option('--polygon', dest='polyFilter',default=False, action='store_true',help="Path to the polygon csv file")
 
 
 	(options, args) = parser.parse_args()

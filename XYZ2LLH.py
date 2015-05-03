@@ -38,8 +38,8 @@ def createLLHFile(options):
 
 if __name__ == '__main__':
 	parser = OptionParser()
-	parser.add_option('-i','--inputFileName', action="store", dest="inputFileName")
-	parser.add_option('-o','--outputFileName', action="store", dest="outputFileName")
+	parser.add_option('-i','--inputFileName', action="store", dest="inputFileName",help="Path to the input file")
+	parser.add_option('-o','--outputFileName', action="store", dest="outputFileName",help="Path to the output file")
 	(options, args) = parser.parse_args()
 	createLLHFile(options)
 
