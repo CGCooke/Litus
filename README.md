@@ -6,7 +6,6 @@ UNSW Aviation Lidar Pipeline
 Generally  the first step in the processing chain is to convert the .las files into text files.
 A very useful utility in this regard is [las2txt](http://www.liblas.org/utilities/las2txt.html). 
 
-
 ### Pre-Requisites
 Litus has a number of pre-requisites. These can be satisfied in two easy steps by installing the following packages : 
 * Anaconda
@@ -32,20 +31,18 @@ Options:
 * -i , --inputFilePath  : Path to the input file
 * -o , --outputFilePath : Path to the output file
 
-An example usage of the script is as follows: 
-  'python XYZ2LLH.py -i Data/Days/Narrabeen1/150319_030412.txt -o Data/Days/Narrabeen1/XYZ2LLH.csv'
+An example usage of the script is as follows:  
+'python XYZ2LLH.py -i Data/Days/Narrabeen1/150319_030412.txt -o Data/Days/Narrabeen1/XYZ2LLH.csv'
 
 ### Filter.py
 Filter.py filters points according to their spatial location.
-The filtration occours in two stages.
-
+The filtration occours in two stages :  
 * Points that don't lie between the min height and max height. 
 * Points that don't lie inside a polygon (if provided).
 
 If a polygon is provided, it must be a CSV file with the following format: "point number, x , y".
 
-IE : 
-  
+IE :  
   1,151.3042614701,-33.7336336437  
   2,151.3038041164,-33.7336926571  
   3,151.3033320093,-33.7336631504  
@@ -61,15 +58,16 @@ Options:
 * --maxHeight           : Maximum height threshold for points
 * --polygon             : Path to the polygon csv file  
 
-An example usage of the script is as follows:
-  'python Filter.py -i Data/Days/Narrabeen1/XYZ2LLH.csv -o Data/Days/Narrabeen1/Filtered.csv --minHeight 13.211 --maxHeight 43.211 --polygon Data/Common/polygon.csv'
+An example usage of the script is as follows:  
+'python Filter.py -i Data/Days/Narrabeen1/XYZ2LLH.csv -o Data/Days/Narrabeen1/Filtered.csv --minHeight 13.211 --maxHeight 43.211 --polygon Data/Common/polygon.csv'
   
 ### Reproject.py
+Reproject projects points from one projection to annother. Simultaniously, it converts the height from the WGS84 elisoidal height to the Australian Height Geoid using the AusGeoid09 [AusGeoid09](http://www.ga.gov.au/ausgeonews/ausgeonews201003/ausgeoid.jsp) model. This script is typically used to convert points from WGS84 to either the [GDA94](http://www.ga.gov.au/scientific-topics/positioning-navigation/geodesy/geodetic-datums/gda) or [UTM](http://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system) coordinate system. The advantage of using the UTM or GDA94 coordinate system is that the axis are orthoganal, and distances are in meters, rather than degrees. 
 
 * -h, --help : show this help message and exit
 * -i, --inputFilePath : Path to the input file
 * -o, --outputFilePath : Path to the output file
 * --epsgCode : EPSG code of the transform to use. For example,'epsg:32756' is the code for UTM zone 56 South.
 
-An example usage of the script is as follows:
+An example usage of the script is as follows:  
   'python Reproject.py -i Data/Days/Narrabeen1/Filtered.csv -o Data/Days/Narrabeen1/UTM.csv --epsgCode epsg:32756'
