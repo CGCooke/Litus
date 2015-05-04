@@ -44,8 +44,8 @@ def reproject(options):
 
 if __name__ == '__main__':
 	parser = OptionParser()
-	parser.add_option('-i','--inputFileName', action="store", dest="inputFileName",help="Path to the input file")
-	parser.add_option('-o','--outputFileName', action="store", dest="outputFileName",help="Path to the output file")
+	parser.add_option('-i','--inputFilePath', action="store", dest="inputFileName",help="Path to the input file")
+	parser.add_option('-o','--outputFilePath', action="store", dest="outputFileName",help="Path to the output file")
 	parser.add_option('--epsgCode', action="store", dest="epsgCode",help="EPSG code of the transform to use. For example, 'epsg:32756' is the code for UTM zone 56 South.")
 	
 	(options, args) = parser.parse_args()
