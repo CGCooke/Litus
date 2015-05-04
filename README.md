@@ -1,6 +1,16 @@
 # Litus
 UNSW Aviation Lidar Pipeline
 
+## Internal processing
+The RIEGL VQ-480i measures range and angle data,
+which is combined with a position and attitude data
+from the GPS-IMU RTK package. The end product
+is a .las file containing a list of geo-referenced LiDAR
+returns. The coordinate system used is ECEF, and
+each point has an associated return intensity, time of
+capture, as well as if it was the first, second ... nth
+return from a pulse.
+
 ## Installation
 
 Generally  the first step in the processing chain is to convert the .las files into text files.
@@ -19,7 +29,23 @@ Once Anaconda has been successfully installed, we can install [Pyproj](https://p
 
 Pyproj can be installed by typing the following command in ther terminal : 'pip install pyproj'
 
-## Using Scripts
+## Using las2txt  
+
+The .las file created contains the position in space of
+each LiDAR return , as well as its time and the intensity
+of the returning pulse. This data is held in format
+which is not immediately accessible to end users. 
+
+The command 'las2txt.exe -i *las -parse xyz -sep comma' can be
+used to batch process files. The command instructs
+las2text to take any .las files as input, and for each
+input file to output a file containing the X,Y,Z 
+coordinates, one to a line. The X,Y,Z Coordinates are in
+the ECEF coordinate system.
+
+More information about las2txt can be found [here](http://www.cs.unc.edu/~isenburg/lastools/download/las2txt_README.txt).
+
+## Using Python Scripts
 Each of the scripts can be run independently, or as part of a processing pipeline. Pipeline.py provides an example of how this can be achieved. For quick help using any of the scripts, call the scrip using the '-h' or '--help' option.
 For example 'python XYZ2LLH.py --help'. As a matter of convention, all coordinates are specified in x,y,z order (Longitude, Latitude, Height). 
 
