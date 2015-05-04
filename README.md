@@ -1,10 +1,11 @@
 # Litus
 UNSW Aviation Lidar Pipeline
 
+## Installation
+
 Generally  the first step in the processing chain is to convert the .las files into text files.
 A very useful utility in this regard is [las2txt](http://www.liblas.org/utilities/las2txt.html). 
 
-## Installation
 
 ### Pre-Requisites
 Litus has a number of pre-requisites. These can be satisfied in two easy steps by installing the following packages : 
@@ -44,17 +45,12 @@ The filtration occours in two stages.
 If a polygon is provided, it must be a CSV file with the following format: "point number, x , y".
 
 IE : 
-1,151.3042614701,-33.7336336437
-
-2,151.3038041164,-33.7336926571
-
-3,151.3033320093,-33.7336631504
-
-4,151.3028599022,-33.7334418502
-
-5,151.3022992750,-33.7328664696
-
-6,151.3016796344,-33.7320845422
+  1,151.3042614701,-33.7336336437
+  2,151.3038041164,-33.7336926571
+  3,151.3033320093,-33.7336631504
+  4,151.3028599022,-33.7334418502
+  5,151.3022992750,-33.7328664696
+  6,151.3016796344,-33.7320845422
   
 
 Options:
