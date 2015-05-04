@@ -7,6 +7,7 @@ import os
 import geoidReader
 
 class TestSequenceFunctions(unittest.TestCase):
+	
 	def test_XYZ2LLH(self):
 
 		#Create a test data file 
@@ -28,7 +29,7 @@ class TestSequenceFunctions(unittest.TestCase):
 		#Clean up
 		os.system('rm test.csv')
 		os.system('rm testOut.csv')
-
+	
 	'''
 	def test_Reproject(self):
 
@@ -52,6 +53,46 @@ class TestSequenceFunctions(unittest.TestCase):
 		os.system('rm test.csv')
 		os.system('rm testOut.csv')
 	'''
+
+	def test_Filtering(self):
+		#Create a test data file 
+		f = open('test.csv','w')
+		f.write('0,0,0\n')
+		f.write('0,0,0\n')
+		f.write('2,2,0\n')
+		f.write('0,0,5\n')
+		f.write('0,0,-5\n')
+		f.close()
+
+		f = open('polygon.csv','w')
+		f.write('1,-1,-1\n')
+		f.write('2,1,-1\n')
+		f.write('3,1,1\n')
+		f.write('4,-1,1\n')
+		f.close()
+
+		#Test with a polygon
+		#Run it through Filter.py
+		os.system('python Filter.py -i test.csv -o testOut.csv --minHeight -1 --maxHeight 1 --polygon polygon.csv')
+		
+		#Check the results
+		inputData = np.loadtxt('testOut.csv',delimiter=',',usecols=(0,1,2))
+		np.testing.assert_allclose(inputData[0],[0.0,0.0,0.0])
+		
+		#Test and see what happens when you don't have a polygon
+		#Run it through Filter.py
+		os.system('python Filter.py -i test.csv -o testOut.csv --minHeight -1 --maxHeight 1')
+		
+		#Check the results
+		inputData = np.loadtxt('testOut.csv',delimiter=',',usecols=(0,1,2))
+		np.testing.assert_allclose(inputData[0],[0.0,0.0,0.0])
+		np.testing.assert_allclose(inputData[1],[0.0,0.0,0.0])
+		np.testing.assert_allclose(inputData[2],[2.0,2.0,0.0])
+		
+		#Clean up
+		os.system('rm polygon.csv')
+		os.system('rm test.csv')
+		os.system('rm testOut.csv')
 
 	def test_computePointOffset(self):
 		#Heights are being checked against Geoscience Australia Applet
