@@ -31,6 +31,8 @@ Options:
 * -i , --inputFilePath  : Path to the input file
 * -o , --outputFilePath : Path to the output file
 
+An example usage of the script is as follows: 'python XYZ2LLH.py -i Data/Days/Narrabeen1/150319_030412.txt -o Data/Days/Narrabeen1/XYZ2LLH.csv'
+
 ### Filter.py
 
 Options:
@@ -40,5 +42,7 @@ Options:
 * --minHeight           : Minimum height threshold for points
 * --maxHeight           : Maximum height threshold for points
 * --polygon             : Path to the polygon csv file  
+
+An example usage of the script is as follows :'python Filter.py -i Data/Days/Narrabeen1/XYZ2LLH.csv -o Data/Days/Narrabeen1/Filtered.csv --minHeight 13.211 --maxHeight 43.211 --polygon Data/Common/polygon.csv'
   
 ### Reproject.py
