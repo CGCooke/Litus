@@ -2,7 +2,7 @@
 UNSW Aviation Lidar Pipeline
 
 Generally  the first step in the processing chain is to convert the .las files into text files.
-A very usefull utility in this regard is [las2txt](http://www.liblas.org/utilities/las2txt.html). 
+A very useful utility in this regard is [las2txt](http://www.liblas.org/utilities/las2txt.html). 
 
 ## Installation
 
@@ -21,10 +21,10 @@ Pyproj can be installed by typing the following command in ther terminal : 'pip 
 
 ## Using Scripts
 Each of the scripts can be run independently, or as part of a processing pipeline. Pipeline.py provides an example of how this can be achieved. For quick help using any of the scripts, call the scrip using the '-h' or '--help' option.
-For example 'python XYZ2LLH.py --help'. As a matter of convention, all coordinates are specified in x,y,z order (Longitude, Lattitude, Height). 
+For example 'python XYZ2LLH.py --help'. As a matter of convention, all coordinates are specified in x,y,z order (Longitude, Latitude, Height). 
 
 ### XYZ2LLH.py
-XYZ2LLH converts points from ECEF (X,Y,Z) to WGS84 (Longitude,Lattitude,Height).
+XYZ2LLH converts points from ECEF (X,Y,Z) to WGS84 (Longitude,Latitude,Height).
 
 Options:
 * -h, --help            : Display documentation
@@ -43,7 +43,7 @@ Options:
 * --maxHeight           : Maximum height threshold for points
 * --polygon             : Path to the polygon csv file  
 
-An example usage of the script is as follows :'python Filter.py -i Data/Days/Narrabeen1/XYZ2LLH.csv -o Data/Days/Narrabeen1/Filtered.csv --minHeight 13.211 --maxHeight 43.211 --polygon Data/Common/polygon.csv'
+An example usage of the script is as follows: 'python Filter.py -i Data/Days/Narrabeen1/XYZ2LLH.csv -o Data/Days/Narrabeen1/Filtered.csv --minHeight 13.211 --maxHeight 43.211 --polygon Data/Common/polygon.csv'
   
 ### Reproject.py
 
@@ -52,4 +52,4 @@ An example usage of the script is as follows :'python Filter.py -i Data/Days/Nar
 * -o, --outputFilePath : Path to the output file
 * --epsgCode : EPSG code of the transform to use. For example,'epsg:32756' is the code for UTM zone 56 South.
 
-'python Reproject.py -i Data/Days/Narrabeen1/Filtered.csv -o Data/Days/Narrabeen1/UTM.csv --epsgCode epsg:32756'
+An example usage of the script is as follows: 'python Reproject.py -i Data/Days/Narrabeen1/Filtered.csv -o Data/Days/Narrabeen1/UTM.csv --epsgCode epsg:32756'
