@@ -46,3 +46,10 @@ Options:
 An example usage of the script is as follows :'python Filter.py -i Data/Days/Narrabeen1/XYZ2LLH.csv -o Data/Days/Narrabeen1/Filtered.csv --minHeight 13.211 --maxHeight 43.211 --polygon Data/Common/polygon.csv'
   
 ### Reproject.py
+
+* -h, --help : show this help message and exit
+* -i, --inputFilePath : Path to the input file
+* -o, --outputFilePath : Path to the output file
+* --epsgCode : EPSG code of the transform to use. For example,'epsg:32756' is the code for UTM zone 56 South.
+
+'python Reproject.py -i Data/Days/Narrabeen1/Filtered.csv -o Data/Days/Narrabeen1/UTM.csv --epsgCode epsg:32756'
