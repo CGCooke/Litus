@@ -27,18 +27,18 @@ For example 'python XYZ2LLH.py --help'. As a matter of convention, all coordinat
 XYZ2LLH converts points from ECEF (X,Y,Z) to WGS84 (Longitude,Lattitude,Height).
 
 Options:
-  -h, --help            show this help message and exit
-  -i , --inputFilePath  Path to the input file
-  -o , --outputFilePath Path to the output file
+* -h, --help            show this help message and exit
+* -i , --inputFilePath  Path to the input file
+* -o , --outputFilePath Path to the output file
 
 ### Filter.py
 
 Options:
-  -h, --help            show this help message and exit
-  -i , --inputFilePath  Path to the input file
-  -o , --outputFilePath Path to the output file
-  --minHeight           Minimum height threshold for points
-  --maxHeight           Maximum height threshold for points
-  --polygon             Path to the polygon csv file  
+* -h, --help            show this help message and exit
+* -i , --inputFilePath  Path to the input file
+* -o , --outputFilePath Path to the output file
+* --minHeight           Minimum height threshold for points
+* --maxHeight           Maximum height threshold for points
+* --polygon             Path to the polygon csv file  
   
 ### Reproject.py
