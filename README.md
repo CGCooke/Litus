@@ -1,6 +1,16 @@
 # Litus
 UNSW Aviation Lidar Pipeline
 
+## Overview of Litus
+
+Litus currently contains 3 program, they are :
+* XYZ2LLH.py : Convert data from ECEF coordinates to Longitude,Latitude,Height
+* Filter.py : Filter points by height and using a polygon
+* Reproject.py : Convert points from Longitude,Latitude,Height to another coordinate system.
+
+A fourth program:
+* las2txt.exe : Convert data from .las format to .csv format
+
 ## Internal processing
 The RIEGL VQ-480i measures range and angle data,
 which is combined with a position and attitude data
