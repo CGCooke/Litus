@@ -106,7 +106,7 @@ def contourMap(meanArray,directory,square,date='1st January 1900',minCutHeight=-
 	fig = plt.figure()
 	maxCutHeight = 250
 	levels = np.arange(minCutHeight,maxCutHeight, contourInterval)
-	format = 'Paper'
+	format = 'KML'
 
 	if format =='KML':
 		''' Making a KML Plot '''

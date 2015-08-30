@@ -13,16 +13,16 @@ import matplotlib.pyplot as plt
 import visualization
 
 class processingParameters:
-    def __init__(self,directory):
-        
-        '''The parameters used for processing LiDAR data'''
-        self.directory = directory
-        self.tileSize = 50
-        self.resolution = 0.25
-        self.indexesPerTile = self.tileSize/self.resolution
-        self.minPointsInTile = 100
-        self.minRunsCoveringTile = 1
-        self.projection ='epsg:32756'
+	def __init__(self,directory):
+		
+		'''The parameters used for processing LiDAR data'''
+		self.directory = directory
+		self.tileSize = 50
+		self.resolution = 0.25
+		self.indexesPerTile = self.tileSize/self.resolution
+		self.minPointsInTile = 100
+		self.projection ='epsg:32756'
+		self.boundary = 5.0
 
 def createGridSquares(runList,tileSize):
 	'''
@@ -37,16 +37,16 @@ def createGridSquares(runList,tileSize):
 		gridSquareDict[(xSquare,ySquare)]=''
 	return(gridSquareDict.keys())
 	
-def pointsInTile(pointList,square,tileSize,boundary = 10):
+def pointsInTile(pointList,square,tileSize,boundary):
 	''' Find the points that lie in a grid square '''
 	'''What is the difference between a grid square and a tile? '''
 	
 	xMin,yMin = square
 	xMin = xMin - boundary
 	yMin = yMin - boundary
-	xMax = xMin + tileSize + boundary
-	yMax = yMin + tileSize + boundary
-	
+	xMax = xMin + tileSize + 2*boundary
+	yMax = yMin + tileSize + 2*boundary
+
 	pointsInTileList=[]
 	for point in pointList:
 		x,y,h = point
@@ -58,51 +58,48 @@ def pointsInTile(pointList,square,tileSize,boundary = 10):
 def interpolatePoints(square,points,parameters):
 	''' Actually perform the spatial interpolation '''
 	min_x,min_y = square
+	boundary = parameters.boundary
+
 	if points.shape[0]>parameters.minPointsInTile:
 		X,Y,Z = points[:,0],points[:,1],points[:,2]
 
-		xi = np.linspace(min_x, min_x+parameters.tileSize,parameters.indexesPerTile)
-		yi = np.linspace(min_y, min_y+parameters.tileSize,parameters.indexesPerTile)
+		xi = np.linspace(min_x-boundary, min_x+parameters.tileSize+boundary,parameters.indexesPerTile+(boundary*2)/parameters.resolution)
+		yi = np.linspace(min_y-boundary, min_y+parameters.tileSize+boundary,parameters.indexesPerTile+(boundary*2)/parameters.resolution)
 		
 		try:
 			zi = griddata(X,Y,Z, xi, yi)
+			zi = zi[boundary/parameters.resolution:-boundary/parameters.resolution,boundary/parameters.resolution:-boundary/parameters.resolution]
 		except KeyError:
 			zi = None
+			print('Interpolation failed')		
 		return(zi)
 
 def interpolateTiles(tiles,run,parameters,writeOut=True,visualize=True,kml=False):
 
 	'''Spatially interpolate and display a tile '''
 	for tile in tiles:
-		interpolatedTileList=[]
-	
 		print('Finding points in Tile')
-		points = pointsInTile(run,tile,parameters.tileSize)
+		points = pointsInTile(run,tile,parameters.tileSize,parameters.boundary)
 		print(len(points), ' points in tile')
 		
 		print('Interpolating')
 		Interpolated = interpolatePoints(tile,points,parameters)
-		print('Finished Interpolating')
-		plt.scatter(points[:,0],points[:,1],color='k',alpha=0.1,s=1)
-		plt.savefig('Data/Days/'+parameters.directory+'/'+str(tile)+"Scatter.png")
-		plt.close()
-
+		
 		if Interpolated != None:
-			interpolatedTileList.append(Interpolated)
+			'''
 			plt.imshow(Interpolated)
 			plt.savefig('Data/Days/'+parameters.directory+'/'+str(tile)+"Interpolated.png")
 			plt.close()
-			
+			'''
 			if visualize==True:
 				visualization.contourMap(Interpolated,parameters.directory,tile)
-
+			
+			'''	
 			if writeOut ==True:
 				f = open('Data/Days/'+parameters.directory+'/'+str(tile)+".bin", "wb" )
 				pickle.dump(Interpolated, f)
 				f.close()
-
-			if kml==True:
-				visualization.writeKMLFile(tile,parameters.directory)
+			'''
 
 parameters = processingParameters('Narrabeen1')
 print('Creating Points List')
@@ -110,16 +107,6 @@ run = np.loadtxt('Data/Days/Narrabeen1/UTM.csv',delimiter=',',usecols=(0,1,2))
 
 print('Creating Grid Squares')
 tiles = createGridSquares(run,parameters.tileSize)
-
-'''
-proj = Proj(init=parameters.projection)
-for tile in tiles:
-	X,Y = tile 
-	
-	lon1,lat1 = proj(X,Y,inverse=True)
-	lon2,lat2 = proj(X+100,Y+100,inverse=True)
-	print(lon1,lat1,lon2,lat2)
-'''
 
 print('Interpolating Tiles')
 tiles = sorted(tiles)
